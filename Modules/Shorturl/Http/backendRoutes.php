@@ -20,6 +20,11 @@ $router->group(['prefix' =>'/shorturl'], function (Router $router) {
         'uses' => 'ShortUrlController@edit',
         //'middleware' => 'can:shorturl.shorturls.edit'
     ]);
+    $router->get('{shorturl}/watch', [
+        'as' => 'admin.shorturl.edit',
+        'uses' => 'ShortUrlController@edit',
+        //'middleware' => 'can:shorturl.shorturls.edit'
+    ]);
 // append
 
 });

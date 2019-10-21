@@ -1,5 +1,6 @@
 import ShortUrlTable from './components/ShortUrlTable.vue';
 import ShortUrlForm from './components/ShortUrlForm.vue';
+import ShortUrWatch from './components/ShortUrWatch.vue';
 
 const locales = window.AsgardCMS.locales;
 
@@ -25,6 +26,15 @@ export default [
         props: {
             locales,
             pageTitle: 'edit shorturl',
+        },
+    },
+    {
+        path: '/shorturl/:shorturlId/watch',
+        name: 'admin.shorturl.watch',
+        component: ShortUrWatch,
+        props: {
+            locales,
+            pageTitle: 'watch shorturl',
         },
     },
 ];

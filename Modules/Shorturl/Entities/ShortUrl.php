@@ -10,7 +10,8 @@ class ShortUrl extends Model
 
     protected $table = 'shorturl__short_url';
     public $translatedAttributes = [];
-    protected $fillable = ['title','description','server','redirect','counter'];
+    protected $fillable = ['title','description','server','redirect','counter','state'];
+    protected $casts = ['state'=>'bool'];
 
     public function visitors()
     {

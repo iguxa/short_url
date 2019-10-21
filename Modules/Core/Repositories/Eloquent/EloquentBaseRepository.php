@@ -37,6 +37,13 @@ abstract class EloquentBaseRepository implements BaseRepository
 
         return $this->model->find($id);
     }
+    /**
+     * @inheritdoc
+     */
+    public function findOrFail($id)
+    {
+        return $this->model->findOrFail($id);
+    }
 
     /**
      * @inheritdoc

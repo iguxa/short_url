@@ -6,7 +6,7 @@ return [
     'edit resource' => 'Edit shorturls',
     'destroy resource' => 'Destroy shorturls',
     'title' => [
-        'shorturls' => 'ShortUrl',
+        'shorturls' => 'Кароткие ссылки',
         'create shorturl' => 'Create a shorturl',
         'edit shorturl' => 'Edit a shorturl',
     ],
@@ -16,9 +16,20 @@ return [
     'table' => [
     ],
     'form' => [
+        'state'=>[
+            'true'=>'активно',
+            'false'=>'не активно',
+        ],
+        'redirect'=>'Перенаправление',
+        'description'=>'Описание',
+        'title'=>'Ссылка',
     ],
     'messages' => [
     ],
     'validation' => [
     ],
+    'visitor'=>[
+        'counter'=>'Количество посещений',
+        'title'=>'Посетитель'
+    ]
 ];

@@ -34,8 +34,11 @@ class ShorturlServiceProvider extends ServiceProvider
             // append translations
 
         });
-        app('router')->bind('short_url', function ($title) {
+        app('router')->bind('shorturl', function ($title) {
             return app(ShortUrlRepository::class)->findByTitle($title);
+        });
+        app('router')->bind('shorturl_id', function ($id) {
+            return app(ShortUrlRepository::class)->findOrFail($id);
         });
     }
 

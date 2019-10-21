@@ -19,6 +19,7 @@ class CreateShortUrlTable extends Migration
             $table->string('description',500);
             $table->string('redirect',500);
             $table->integer('counter')->default(0);
+            $table->integer('state')->default(0);
             $table->timestamps();
         });
     }

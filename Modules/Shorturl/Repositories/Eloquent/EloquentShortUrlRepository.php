@@ -45,4 +45,11 @@ class EloquentShortUrlRepository extends EloquentBaseRepository implements Short
     {
         return $this->model->where('title',$title)->first();
     }
+    public function create($data)
+    {
+        $data['title'] = str_random(3);
+        $shortUrl =  parent::create($data);
+        $shortUrl->title .= $shortUrl->id;
+        return $shortUrl->save();
+    }
 }

@@ -18,7 +18,7 @@ class ShortUrlController extends Controller
 {
     public function index(ShortUrl $shortUrl, Request $request)
     {
-        if($this->isNewVisitors($request)){
+        if($this->isNewVisitors($request)) {
             $this->createNewVisitors($shortUrl);
         }else{
             Visitors::find($request->cookie('visitors_id'))->increment('counter');
@@ -33,7 +33,10 @@ class ShortUrlController extends Controller
      */
     protected function isNewVisitors(Request $request): bool
     {
-        return !($request->cookie('su') and $request->cookie('visitors_id'));
+        if($request->cookie('su') and $request->cookie('visitors_id')){
+            return !boolval(Visitors::find($request->cookie('visitors_id')));
+        };
+        return true;
     }
 
     /**
@@ -47,6 +50,17 @@ class ShortUrlController extends Controller
         $visitors->increment('counter');
         Cookie::queue(Cookie::forever('su', $shortUrl->title));
         Cookie::queue(Cookie::forever('visitors_id', $visitors->id));
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    protected function isVisitorsNotCreated(Request $request)
+    {
+        $test =1;
+
+        return Visitors::find($request->cookie('visitors_id'))->count() == 0;
     }
 
 }
