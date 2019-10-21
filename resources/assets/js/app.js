@@ -11,6 +11,7 @@ import VueSimplemde from 'vue-simplemde';
 import PageRoutes from '../../../Modules/Page/Assets/js/PageRoutes';
 import MediaRoutes from '../../../Modules/Media/Assets/js/MediaRoutes';
 import UserRoutes from '../../../Modules/User/Assets/js/UserRoutes';
+import ShortUrlRoutes from '../../../Modules/Shorturl/Assets/js/ShortUrlRoutes';
 
 Vue.use(ElementUI, { locale });
 Vue.use(VueI18n);
@@ -47,6 +48,7 @@ const router = new VueRouter({
         ...PageRoutes,
         ...MediaRoutes,
         ...UserRoutes,
+        ...ShortUrlRoutes,
     ],
 });
 

@@ -7,9 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class ShortUrl extends Model
 {
-    use Translatable;
 
-    protected $table = 'shorturl__shorturls';
+    protected $table = 'shorturl__short_url';
     public $translatedAttributes = [];
-    protected $fillable = [];
+    protected $fillable = ['title','description','server','redirect','counter'];
+
+    public function visitors()
+    {
+        return $this->hasMany(Visitors::class);
+    }
 }

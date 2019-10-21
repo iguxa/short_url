@@ -7,6 +7,7 @@ use Modules\Core\Traits\CanPublishConfiguration;
 use Modules\Core\Events\BuildingSidebar;
 use Modules\Core\Events\LoadingBackendTranslations;
 use Modules\Shorturl\Events\Handlers\RegisterShorturlSidebar;
+use Modules\Shorturl\Repositories\ShortUrlRepository;
 
 class ShorturlServiceProvider extends ServiceProvider
 {
@@ -32,6 +33,9 @@ class ShorturlServiceProvider extends ServiceProvider
             $event->load('shorturls', array_dot(trans('shorturl::shorturls')));
             // append translations
 
+        });
+        app('router')->bind('short_url', function ($title) {
+            return app(ShortUrlRepository::class)->findByTitle($title);
         });
     }
 

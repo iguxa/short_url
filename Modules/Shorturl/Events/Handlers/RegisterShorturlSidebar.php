@@ -46,8 +46,8 @@ class RegisterShorturlSidebar implements \Maatwebsite\Sidebar\SidebarExtender
                 $item->item(trans('shorturl::shorturls.title.shorturls'), function (Item $item) {
                     $item->icon('fa fa-copy');
                     $item->weight(0);
-                    $item->append('admin.shorturl.shorturl.create');
-                    $item->route('admin.shorturl.shorturl.index');
+                    $item->append('admin.shorturl.create');
+                    $item->route('admin.shorturl.index');
                     $item->authorize(
                         $this->auth->hasAccess('shorturl.shorturls.index')
                     );
