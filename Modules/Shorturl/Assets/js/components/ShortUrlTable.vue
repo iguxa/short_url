@@ -2,13 +2,13 @@
     <div>
         <div class="content-header">
             <h1>
-                {{ trans('cities.title.cities') }}
+                {{ trans('shorturls.title.shorturls') }}
             </h1>
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item>
                     <a href="/backend">{{ trans('core.breadcrumb.home') }}</a>
                 </el-breadcrumb-item>
-                <el-breadcrumb-item :to="{name: 'api.shorturl.index'}">{{ trans('cities.title.cities') }}
+                <el-breadcrumb-item :to="{name: 'admin.shorturl.index'}">{{ trans('shorturls.title.shorturls') }}
                 </el-breadcrumb-item>
             </el-breadcrumb>
         </div>
@@ -22,7 +22,7 @@
                                 <div class="actions el-col el-col-8">
                                     <router-link :to="{name: 'api.shorturl.create'}">
                                         <el-button type="primary"><i class="el-icon-edit"></i>
-                                            {{ trans('cities.button.new-cities') }}
+                                            {{ trans('shorturls.button.new-shorturls') }}
                                         </el-button>
                                     </router-link>
                                 </div>
@@ -39,28 +39,28 @@
                                     ref="projectTable"
                                     v-loading.body="tableIsLoading"
                                     @sort-change="handleSortChange">
-                                <el-table-column :label="trans('cities.table.status')" width="100">
+                                <el-table-column :label="trans('shorturls.table.status')" width="100">
                                     <template slot-scope="scope">
                                         <i class="fa fa-circle" :class="(scope.row.state === true) ? 'text-success':'text-danger'"></i>
                                     </template>
                                 </el-table-column>
                                 <el-table-column prop="id" label="Id" width="75" sortable="custom">
                                 </el-table-column>
-                                <el-table-column prop="title" :label="trans('shorturl.table.link')" sortable="custom">
+                                <el-table-column prop="title" :label="trans('shorturls.table.link')" sortable="custom">
                                     <template slot-scope="scope">
                                         <a :href=scope.row.title>
                                             {{ scope.row.title }}
                                         </a>
                                     </template>
                                 </el-table-column>
-                                <el-table-column prop="title" :label="trans('shorturl.table.redirect')" sortable="custom">
+                                <el-table-column prop="title" :label="trans('shorturls.table.redirect')" sortable="custom">
                                     <template slot-scope="scope">
                                         <a :href=scope.row.title>
                                             {{ scope.row.redirect }}
                                         </a>
                                     </template>
                                 </el-table-column>
-                                <el-table-column prop="title" :label="trans('shorturl.table.counter')" sortable="custom">
+                                <el-table-column prop="title" :label="trans('shorturls.table.counter')" sortable="custom">
                                     <template slot-scope="scope">
                                             {{ scope.row.counter }}
                                     </template>

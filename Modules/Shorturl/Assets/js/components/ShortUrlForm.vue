@@ -2,15 +2,15 @@
     <div>
         <div class="content-header">
             <h1>
-                {{ trans('shorturl.title.shorturl') }} <small>{{ shorturl.name }}</small>
+                {{ trans('shorturls.title.shorturls') }} <small>{{ shorturl.name }}</small>
             </h1>
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item>
                     <a href="/backend">{{ trans('core.breadcrumb.home') }}</a>
                 </el-breadcrumb-item>
-                <el-breadcrumb-item :to="{name: 'shorturl.index'}">{{ trans('shorturl.title.shorturl') }}
+                <el-breadcrumb-item :to="{name: 'admin.shorturl.index'}">{{ trans('shorturls.title.shorturls') }}
                 </el-breadcrumb-item>
-                <el-breadcrumb-item :to="{name: 'shorturl.create'}">{{ trans(`shorturl.title.create`) }}
+                <el-breadcrumb-item :to="{name: 'admin.shorturl.create'}">{{ trans(`shorturls.title.create`) }}
                 </el-breadcrumb-item>
             </el-breadcrumb>
         </div>
@@ -25,9 +25,9 @@
                     <div class="box box-primary">
                         <div class="box-body">
                             <el-tabs>
-                                <el-tab-pane :label="trans('shorturl.title.data')">
+                                <el-tab-pane :label="trans('shorturls.title.data')">
                                     <!--title-->
-                                    <el-form-item v-if="shorturl.title" :label="trans('shorturl.form.title')"
+                                    <el-form-item v-if="shorturl.title" :label="trans('shorturls.form.title')"
                                                   :class="{'el-form-item is-error': form.errors.has('title') }">
                                         <el-input
                                                 disabled
@@ -36,7 +36,7 @@
                                              v-text="form.errors.first('title')"></div>
                                     </el-form-item>
                                     <!--description-->
-                                    <el-form-item :label="trans('shorturl.form.description')"
+                                    <el-form-item :label="trans('shorturls.form.description')"
                                                   :class="{'el-form-item is-error': form.errors.has('description') }">
                                         <el-input
                                                 v-model="shorturl.description"></el-input>
@@ -44,7 +44,7 @@
                                              v-text="form.errors.first('description')"></div>
                                     </el-form-item>
                                     <!--redirect-->
-                                    <el-form-item :label="trans('shorturl.form.redirect')"
+                                    <el-form-item :label="trans('shorturls.form.redirect')"
                                                   :class="{'el-form-item is-error': form.errors.has('redirect') }">
                                         <el-input
                                                 v-model="shorturl.redirect"></el-input>
@@ -52,10 +52,10 @@
                                              v-text="form.errors.first('redirect')"></div>
                                     </el-form-item>
                                     <!--state-->
-                                    <el-form-item :label="trans('shorturl.form.state')"
+                                    <el-form-item :label="trans('shorturls.form.state')"
                                                   :class="{'el-form-item is-error': form.errors.has('state') }">
                                         <el-checkbox
-                                                v-model="shorturl.state" :value="shorturl.state">{{ trans('guide_categories.form.state') }}</el-checkbox>
+                                                v-model="shorturl.state" :value="shorturl.state">{{ trans('shorturls.form.state.state') }}</el-checkbox>
                                         <div class="el-form-item__error" v-if="form.errors.has('state')"
                                              v-text="form.errors.first('state')"></div>
                                     </el-form-item>

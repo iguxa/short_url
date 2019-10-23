@@ -2,15 +2,15 @@
     <div>
         <div class="content-header">
             <h1>
-                {{ trans('shorturls.title.shorturl') }} <small>{{ shorturl.name }}</small>
+                {{ trans('shorturls.title.shorturls') }} <small>{{ shorturl.name }}</small>
             </h1>
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item>
                     <a href="/backend">{{ trans('core.breadcrumb.home') }}</a>
                 </el-breadcrumb-item>
-                <el-breadcrumb-item :to="{name: 'shorturl.index'}">{{ trans('shorturls.title.shorturl') }}
+                <el-breadcrumb-item :to="{name: 'admin.shorturl.index'}">{{ trans('shorturls.title.shorturls') }}
                 </el-breadcrumb-item>
-                <el-breadcrumb-item :to="{name: 'shorturl.create'}">{{ trans(`shorturls.title.create`) }}
+                <el-breadcrumb-item :to="{name: 'admin.shorturl.watch'}">{{ trans(`shorturls.title.watch`) }}
                 </el-breadcrumb-item>
             </el-breadcrumb>
         </div>
@@ -23,15 +23,15 @@
                                         <h2>{{ trans('shorturls.form.title') }}</h2>
                                         <a :href="shorturl.title">{{shorturl.title}}</a>
                                     </div>
+                                     <!--redirect-->
+                                     <div>
+                                         <h2>{{ trans('shorturls.form.redirect') }}</h2>
+                                         <a :href="shorturl.redirect">{{shorturl.redirect}}</a>
+                                     </div>
                                     <!--description-->
                                     <div>
                                         <h2>{{ trans('shorturls.form.description') }}</h2>
                                         {{shorturl.description}}
-                                    </div>
-                                    <!--redirect-->
-                                    <div>
-                                        <h2>{{ trans('shorturls.form.redirect') }}</h2>
-                                        {{shorturl.redirect}}
                                     </div>
                                     <!--state-->
                                     <div>
