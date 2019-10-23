@@ -45,6 +45,7 @@ class ShorturlServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishConfig('shorturl', 'permissions');
+        $this->publishConfig('shorturl', 'config');
 
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
     }

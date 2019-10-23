@@ -18,13 +18,12 @@ class ShortUrlController extends Controller
 {
     public function index(ShortUrl $shortUrl, Request $request)
     {
-        if($this->isNewVisitors($request)) {
-            $this->createNewVisitors($shortUrl);
-        }else{
-            Visitors::find($request->cookie('visitors_id'))->increment('counter');
-        };
-        $shortUrl->increment('counter');
-        return redirect($shortUrl->redirect);
+         if($this->isNoRedirect($request)){
+             $meta_title = $shortUrl->meta_title ?? 'Нет загаловка';
+             $meta_description = $shortUrl->meta_description ?? 'Нет описания';
+             return view('shorturl::noredirect.shorturls.index', compact('meta_title','meta_description'));
+         }
+         return $this->MakeRedirect($shortUrl , $request);
     }
 
     /**
@@ -58,9 +57,39 @@ class ShortUrlController extends Controller
      */
     protected function isVisitorsNotCreated(Request $request)
     {
-        $test =1;
-
         return Visitors::find($request->cookie('visitors_id'))->count() == 0;
+    }
+
+    /**
+     * @param ShortUrl $shortUrl
+     * @param Request $request
+     * @return mixed
+     */
+    protected function MakeRedirect(ShortUrl $shortUrl , Request $request)
+    {
+        if ($this->isNewVisitors($request)) {
+            $this->createNewVisitors($shortUrl);
+        } else {
+            Visitors::find($request->cookie('visitors_id'))->increment('counter');
+        };
+        $shortUrl->increment('counter');
+        return redirect($shortUrl->redirect);
+    }
+
+    /**
+     * @param Request $request
+     * @return bool
+     */
+    protected function isNoRedirect(Request $request): bool
+    {
+        $user_agent = $request->header('User-Agent');
+        $no_redirects = config('asgard.shorturl.config.no_redirect');
+        foreach ($no_redirects as $no_redirect) {
+            if (preg_match("/$no_redirect/i" , $user_agent)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

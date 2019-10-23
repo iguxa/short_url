@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'name' => 'Shorturl'
+    'name' => 'Shorturl',
+    'no_redirect' => ['telegram' , 'vk']
 ];

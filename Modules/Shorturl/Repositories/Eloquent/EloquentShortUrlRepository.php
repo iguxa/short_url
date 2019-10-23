@@ -43,7 +43,7 @@ class EloquentShortUrlRepository extends EloquentBaseRepository implements Short
 
     public function findByTitle($title)
     {
-        return $this->model->where('title',$title)->first();
+        return $this->model->where('title',$title)->first() ?? abort(404);
     }
     public function create($data)
     {
