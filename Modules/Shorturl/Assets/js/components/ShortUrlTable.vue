@@ -20,7 +20,7 @@
                         <div class="sc-table">
                             <div class="tool-bar el-row" style="padding-bottom: 20px;">
                                 <div class="actions el-col el-col-8">
-                                    <router-link :to="{name: 'api.shorturl.create'}">
+                                    <router-link :to="{name: 'admin.shorturl.create'}">
                                         <el-button type="primary"><i class="el-icon-edit"></i>
                                             {{ trans('shorturls.button.new-shorturls') }}
                                         </el-button>

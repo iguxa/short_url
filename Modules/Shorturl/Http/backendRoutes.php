@@ -15,13 +15,13 @@ $router->group(['prefix' =>'/shorturl'], function (Router $router) {
         //'middleware' => 'can:shorturl.shorturls.create'
     ]);
 
-    $router->get('{shorturl}/edit', [
+    $router->get('{shorturl_id}/edit', [
         'as' => 'admin.shorturl.edit',
         'uses' => 'ShortUrlController@edit',
         //'middleware' => 'can:shorturl.shorturls.edit'
     ]);
-    $router->get('{shorturl}/watch', [
-        'as' => 'admin.shorturl.edit',
+    $router->get('{shorturl_id}/watch', [
+        'as' => 'admin.shorturl.watch',
         'uses' => 'ShortUrlController@edit',
         //'middleware' => 'can:shorturl.shorturls.edit'
     ]);
