@@ -30,7 +30,8 @@
         "idavoll/flatly-theme": "~3.0",
         "idavoll/adminlte-theme": "~3.0",
         "mcamara/laravel-localization": "^1.4",
-        "brexis/laravel-workflow": "^1.3"
+        "brexis/laravel-workflow": "^1.3",
+        "kalnoy/nestedset": "4.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

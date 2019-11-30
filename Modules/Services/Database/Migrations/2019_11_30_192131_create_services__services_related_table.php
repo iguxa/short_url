@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateServicesServicesRelatedsTable extends Migration
+class CreateServicesServicesRelatedTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +13,10 @@ class CreateServicesServicesRelatedsTable extends Migration
      */
     public function up()
     {
-        Schema::create('services__servicesrelateds', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
+        Schema::create('services__services_related', function (Blueprint $table) {
             $table->increments('id');
-            // Your fields
-            $table->timestamps();
+            $table->integer('services_id',false, true);
+            $table->integer('related_services_id',false, true);
         });
     }
 
@@ -27,6 +27,6 @@ class CreateServicesServicesRelatedsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('services__servicesrelateds');
+        Schema::dropIfExists('services__services_related');
     }
 }

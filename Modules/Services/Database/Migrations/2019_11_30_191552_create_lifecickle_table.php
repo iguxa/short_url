@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateServicesServicesTable extends Migration
+class CreateLifecickleTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +13,11 @@ class CreateServicesServicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('services__services', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
+        Schema::create('services__lifecycle', function (Blueprint $table) {
             $table->increments('id');
-            // Your fields
+            $table->string('title',100);
+            $table->string('description',500);
+            $table->integer('state',false, true);
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ class CreateServicesServicesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('services__services');
+        Schema::dropIfExists('lifecickle');
     }
 }

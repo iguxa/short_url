@@ -8,27 +8,27 @@ $router->group(['prefix' => '/services',
 ], function (Router $router) {
     $router->get('/', [
         'as' => 'api.services.index',
-        'uses' => 'servicesController@index',
+        'uses' => 'ServicesController@index',
         //'middleware' => 'token-can:page.pages.index',
     ]);
     $router->delete('{services_id}', [
         'as' => 'api.services.destroy',
-        'uses' => 'servicesController@destroy',
+        'uses' => 'ServicesController@destroy',
         //'middleware' => 'token-can:page.pages.destroy',
     ]);
     $router->post('/', [
         'as' => 'api.services.store',
-        'uses' => 'servicesController@store',
+        'uses' => 'ServicesController@store',
         'middleware' => 'token-can:page.pages.create',
     ]);
     $router->get('{services_id}', [
         'as' => 'api.services.find',
-        'uses' => 'servicesController@find',
+        'uses' => 'ServicesController@find',
         //'middleware' => 'token-can:page.pages.edit',
     ])->where('services','[0-9]+');
     $router->post('{services_id}', [
         'as' => 'api.services.update',
-        'uses' => 'servicesController@update',
+        'uses' => 'ServicesController@update',
         //'middleware' => 'token-can:page.pages.edit',
     ]);
 });

@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Services extends Model
 {
-    use Translatable;
-
     protected $table = 'services__services';
-    public $translatedAttributes = [];
-    protected $fillable = [];
+    protected $fillable = ['title','description','workflow_id','state'];
+    protected $casts = ['state'=>'bool'];
+
 }
