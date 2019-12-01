@@ -22,7 +22,7 @@
                                 <div class="actions el-col el-col-8">
                                     <router-link :to="{name: 'admin.services.workflow.create'}">
                                         <el-button type="primary"><i class="el-icon-edit"></i>
-                                            {{ trans('services.button.new-services') }}
+                                            {{ trans('workflows.button.create_workflows') }}
                                         </el-button>
                                     </router-link>
                                 </div>

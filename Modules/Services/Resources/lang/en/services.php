@@ -10,6 +10,7 @@ return [
         'create services' => 'Create a services',
         'edit services' => 'Edit a services',
         'data' => 'Данные',
+        'workflow' => 'Жизненые циклы'
     ],
     'button' => [
         'create services' => 'Create a services',

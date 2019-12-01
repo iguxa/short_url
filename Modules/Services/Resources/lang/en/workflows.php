@@ -11,7 +11,7 @@ return [
         'edit workflows' => 'Edit a workflows',
     ],
     'button' => [
-        'create workflows' => 'Create a workflows',
+        'create_workflows' => 'Создать этап рабочего процесса',
     ],
     'table' => [
     ],
