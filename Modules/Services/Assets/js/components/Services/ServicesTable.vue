@@ -60,23 +60,9 @@
                                 </el-table-column>
                                 <el-table-column prop="id" label="Id" width="75" sortable="custom">
                                 </el-table-column>
-                                <el-table-column prop="title" :label="trans('services.table.link')" sortable="custom">
+                                <el-table-column prop="title" :label="trans('services.table.workflow')" sortable="custom">
                                     <template slot-scope="scope">
-                                        <a :href=scope.row.title>
-                                            {{ scope.row.title }}
-                                        </a>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column prop="title" :label="trans('services.table.redirect')" sortable="custom">
-                                    <template slot-scope="scope">
-                                        <a :href=scope.row.title>
-                                            {{ scope.row.redirect }}
-                                        </a>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column prop="title" :label="trans('services.table.counter')" sortable="custom">
-                                    <template slot-scope="scope">
-                                            {{ scope.row.counter }}
+                                            {{ scope.row.workflow }}
                                     </template>
                                 </el-table-column>
                                 <el-table-column prop="actions" :label="trans('core.table.actions')">

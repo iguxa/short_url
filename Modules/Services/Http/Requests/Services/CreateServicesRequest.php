@@ -10,6 +10,7 @@ class CreateServicesRequest extends BaseFormRequest
     {
         return [
             'title'=>'required|string|max:100',
+            'workflow_id'=>'required|max:1000',
             'description'=>'nullable|string|max:100',
             //'slug'=>'required|string|max:100',
             //'parent'=>'required',

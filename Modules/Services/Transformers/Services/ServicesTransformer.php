@@ -14,6 +14,7 @@ class ServicesTransformer extends Resource
             'description' => $this->description,
             'created_at' => $this->created_at,
             'state'=>$this->state,
+            'workflow'=>$this->workflow->title ?? null,
             'urls' => [
                 'delete_url' => route('api.services.service.destroy', $this->id),
             ],

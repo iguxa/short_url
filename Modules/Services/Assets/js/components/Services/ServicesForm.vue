@@ -50,6 +50,15 @@
                                         <div class="el-form-item__error" v-if="form.errors.has('redirect')"
                                              v-text="form.errors.first('redirect')"></div>
                                     </el-form-item>-->
+                                    <!--categories_type-->
+                                    <el-form-item :label="trans('workflows.form.workflow_id')"
+                                                  :class="{'el-form-item is-error': form.errors.has('workflow_id') }"><br>
+                                        <el-select v-model="services.workflow_id">
+                                            <el-option v-for="workflowItem in categorieslist" :key="workflowItem.id" :label="workflowItem.title" :value="workflowItem.id"></el-option>
+                                        </el-select>
+                                        <div class="el-form-item__error" v-if="form.errors.has( 'workflow_id')"
+                                             v-text="form.errors.first('workflow_id')"></div>
+                                    </el-form-item>
 
                                     <!--state-->
                                     <el-form-item :label="trans('services.form.state.title')"
@@ -139,10 +148,12 @@
                     title: '',
                     api_url: '',
                     related_services: [],
+                    workflow_id: ''
                 },
                 form: new Form(),
                 loading: false,
                 api_dates: [],
+                categorieslist:[]
             };
         },
         methods: {
@@ -152,6 +163,12 @@
             validateUrl() {
                 const regex = /^(http|https)/;
                 return (!this.services.api_url.match(regex));
+            },
+            fetchCategories() {
+                axios.get(route('api.services.workflow.index'))
+                    .then((response) => {
+                        this.categorieslist = response.data.data;
+                    });
             },
             onSubmit() {
                 this.form = new Form(this.services);
@@ -237,6 +254,7 @@
         },
         mounted() {
               this.fetchServices();
+              this.fetchCategories();
         },
     };
 </script>
