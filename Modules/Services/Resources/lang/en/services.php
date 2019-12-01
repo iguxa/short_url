@@ -14,18 +14,31 @@ return [
     'button' => [
         'create services' => 'Create a services',
         'new-services' => 'Добавить микросервис',
+        'generate-services' => 'Автогенерация микросервиса'
     ],
     'table' => [
+        'status' => 'Статус',
+        'link' => 'URL'
     ],
     'form' => [
         'title' => 'Название',
         'description' => 'Описание',
-        'state' => 'Включено',
+        'state' => [
+            'state' => 'Включено'
+        ],
         'api_url' => 'URL для автообновления',
         'related_services' => 'Связанные сервисы',
     ],
     'messages' => [
     ],
     'validation' => [
+    ],
+    'workflow' => [
+        'table' => [
+            'workflow' => [
+                'up' => 'Сортировка по возрастанию',
+                'down' => 'Сортировка по убыванию'
+            ]
+        ]
     ]
 ];
