@@ -50,6 +50,7 @@
                                         <div class="el-form-item__error" v-if="form.errors.has('redirect')"
                                              v-text="form.errors.first('redirect')"></div>
                                     </el-form-item>-->
+
                                     <!--state-->
                                     <el-form-item :label="trans('services.form.state')"
                                                   :class="{'el-form-item is-error': form.errors.has('state') }">
@@ -58,6 +59,46 @@
                                         <div class="el-form-item__error" v-if="form.errors.has('state')"
                                              v-text="form.errors.first('state')"></div>
                                     </el-form-item>
+                                    <!--api_url-->
+                                    <el-form-item :label="trans('services.form.api_url')"
+                                                  :class="{'el-form-item is-error': form.errors.has('api_url') }">
+                                        <el-input
+                                                v-model="services.api_url"></el-input>
+                                        <div class="el-form-item__error" v-if="form.errors.has('api_url')"
+                                             v-text="form.errors.first('api_url')"></div>
+                                    </el-form-item>
+                                    <!--related_offers-->
+                                    <div class="panel box box-primary">
+                                        <div class="box-header">
+                                            <h4 class="box-title">
+                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
+                                                   :href="`#collapse-related_services`">
+                                                    {{ trans('services.form.related_services') }}
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div style="height: 0px;" :id="`collapse-related_services`"
+                                             class="panel-collapse collapse">
+                                            <div class="box-body">
+                                                <el-form-item :label="trans('services.form.related_services')" :class="{'el-form-item is-error': form.errors.has('related_services') }">
+                                                    <div  v-for="(id, key) in services.related_services" :key="key">
+                                                        <entity-filter entity="Modules\Services\Entities\Services" v-model="services.related_services[key]">
+                                                            <template v-slot:btn>
+                                                                <el-button type="danger" @click="deleteVariant(key,'related_services')" size="mini"><i class="fa fa-trash"></i></el-button>
+                                                            </template>
+                                                        </entity-filter>
+                                                    </div>
+                                                    <el-form-item >
+                                                        <el-button type="primary" @click="services.related_services.push({})" >
+                                                            {{ trans('core.form.add') }}
+                                                        </el-button>
+                                                    </el-form-item>
+                                                </el-form-item>
+                                            </div>
+                                        </div>
+                                        <div class="el-form-item__error" v-if="form.errors.has('related_offers')"
+                                             v-text="form.errors.first('related_offers')"></div>
+                                    </div>
                                 </el-tab-pane>
                             </el-tabs>
                         </div>
@@ -96,12 +137,22 @@
                     state: '',
                     description: '',
                     title: '',
+                    api_url: '',
+                    related_services: [],
                 },
                 form: new Form(),
                 loading: false,
+                api_dates: [],
             };
         },
         methods: {
+            deleteVariant(index,offer) {
+                this.services[offer].splice(index, 1);
+            },
+            validateUrl() {
+                const regex = /^(http|https)/;
+                return (!this.services.api_url.match(regex));
+            },
             onSubmit() {
                 this.form = new Form(this.services);
                 this.loading = true;
@@ -143,6 +194,30 @@
                     return route('api.services.service.update', { services: this.$route.params.servicesId });
                 }
                 return route('api.services.service.store');
+            },
+            fetchByUrl(url) {
+                console.log(url);
+                var config = {
+                    headers: {'Access-Control-Allow-Origin': '*'}
+                };
+                axios.get(url,config)
+                    .then((response) => {
+                        this.api_dates = response.data;
+                    });
+            },
+        },
+        watch:{
+            'services.api_url': function(val, oldVal){
+                if (val !== oldVal) {
+                    console.log(11);
+                    if(val){
+                        this.fetchByUrl(val);
+                        console.log(22);
+
+                    }
+                    console.log(33);
+
+                }
             },
         },
         mounted() {

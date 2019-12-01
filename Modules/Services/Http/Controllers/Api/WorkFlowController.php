@@ -3,9 +3,7 @@
 namespace Modules\Services\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\Resource;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\URL;
 use Modules\Services\Http\Services\OffersRelated;
 use Modules\Services\Entities\WorkFlows;
@@ -30,16 +28,6 @@ class WorkFlowController extends Controller
 
     public function index(Request $request)
     {
-        /*Artisan::call('workflow:dump straight', [
-            '--format' => 'svg', '--class' => 'App\\Http\\Controllers\\Controller'
-        ]);
-        $test = (new WorkFlow())->workflow();*/
-        $response = (new WorkFlow())->workflow();
-        $fp = fopen('results.json', 'w');
-        //fwrite($fp, json_encode($response));
-        fclose($fp);
-        $test =file_get_contents( 'results.json');
-        //file_get_contents( fopen('results.json', 'r'));
         return WorkFlowTransformer::collection($this->workflow->nestedSort(WorkFlows::defaultOrder()->get()->toTree()));
     }
     public function generate()
@@ -52,8 +40,6 @@ class WorkFlowController extends Controller
             return ['generate'=>true];
         }
         return['generate'=>false];
-
-
     }
     public function getdoc()
     {

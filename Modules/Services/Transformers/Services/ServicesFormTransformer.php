@@ -14,6 +14,8 @@ class ServicesFormTransformer  extends Resource
             'description' => $this->description,
             'created_at' => $this->created_at,
             'state'=>$this->state,
+            'api_url'=>$this->api_url,
+            'related_services'=> $this->related_services()->pluck("{$this->getTable()}.id") ?? [],
             'urls' => [
                 'delete_url' => route('api.services.service.destroy', $this->id),
             ],

@@ -16,9 +16,9 @@ class OffersRelated implements OffersRelatedService
     {
         $this->model->related_workflow()->sync($ids);
     }
-    public function addSame_offers(array $ids)
+    public function addRelated_services(array $ids)
     {
-        $this->model->same_offers()->sync($ids);
+        $this->model->related_services()->sync($ids);
     }
     public function addLabels(array $ids)
     {

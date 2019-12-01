@@ -7,6 +7,7 @@ use Illuminate\Routing\Controller;
 use Modules\Page\Http\Requests\CreateShortUrlRequest;
 use Modules\Services\Entities\Services;
 use Modules\Services\Http\Requests\Services\CreateServicesRequest;
+use Modules\Services\Http\Services\OffersRelated;
 use Modules\Services\Repositories\ServicesRepository;
 use Modules\Services\Transformers\Services\ServicesFormTransformer;
 use Modules\Services\Transformers\Services\ServicesTransformer;
@@ -33,7 +34,9 @@ class ServicesController extends Controller
 
     public function store(CreateServicesRequest $request)
     {
-        $this->services->create($request->all());
+        $services = $this->services->create($request->all());
+        (new OffersRelated($services))->addRelated_services(array_filter($request->get('related_services')));
+
 
         return response()->json([
             'errors' => false,
@@ -48,7 +51,9 @@ class ServicesController extends Controller
 
     public function update(Services $services, CreateServicesRequest $request)
     {
-        $this->services->update($services, $request->except('id'));
+        $services = $this->services->update($services, $request->except('id'));
+        (new OffersRelated($services))->addRelated_services(array_filter($request->get('related_services')));
+
 
         return response()->json([
             'errors' => false,
