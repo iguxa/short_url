@@ -20,7 +20,9 @@ return [
     ],
     'table' => [
         'status' => 'Статус',
-        'link' => 'URL'
+        'link' => 'URL',
+        'workflow'=>'Жизненый цикл',
+        'title'=>'Название'
     ],
     'form' => [
         'title' => 'Название',

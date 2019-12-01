@@ -60,6 +60,11 @@
                                 </el-table-column>
                                 <el-table-column prop="id" label="Id" width="75" sortable="custom">
                                 </el-table-column>
+                                <el-table-column prop="title" :label="trans('services.table.title')" sortable="custom">
+                                    <template slot-scope="scope">
+                                        {{ scope.row.title }}
+                                    </template>
+                                </el-table-column>
                                 <el-table-column prop="title" :label="trans('services.table.workflow')" sortable="custom">
                                     <template slot-scope="scope">
                                             {{ scope.row.workflow }}
