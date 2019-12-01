@@ -15,7 +15,8 @@ return [
     'button' => [
         'create services' => 'Create a services',
         'new-services' => 'Добавить микросервис',
-        'generate-services' => 'Автогенерация микросервиса'
+        'generate-services' => 'Автогенерация микросервиса',
+        'check-services'=> 'Проверка дублей'
     ],
     'table' => [
         'status' => 'Статус',

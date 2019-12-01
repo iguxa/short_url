@@ -1,6 +1,8 @@
 import ServicesTable from './components/Services/ServicesTable';
 import ServicesForm from './components/Services/ServicesForm';
 import ServicesWatch from './components/Services/ServicesWatch';
+import ServicesGenerate from './components/Services/ServicesGenerate';
+import ServicesCheckForm from './components/Services/ServicesCheckForm';
 import WorkFlowTable from './components/WorkFlow/WorkFlowTable';
 import WorkFlowForm from './components/WorkFlow/WorkFlowForm';
 import WorkFlowWatch from './components/WorkFlow/WorkFlowWatch';
@@ -41,6 +43,16 @@ export default [
             locales,
             pageTitle: 'watch services',
         },
+    },
+    {
+        path: '/services/service/generate',
+        name: 'admin.services.service.generate',
+        component: ServicesGenerate,
+    },
+    {
+        path: '/services/service/check',
+        name: 'admin.services.service.check',
+        component: ServicesCheckForm,
     },
     // workflow
     {

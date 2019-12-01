@@ -20,6 +20,16 @@ $router->group(['prefix' =>'/services'], function (Router $router) {
             'uses' => 'ServicesController@edit',
             //'middleware' => 'can:services.service.edit'
         ]);
+        $router->get('generate', [
+            'as' => 'admin.services.workflow.generate',
+            'uses' => 'ServicesController@index',
+            //'middleware' => 'can:services.services.edit'
+        ]);
+        $router->get('check', [
+            'as' => 'admin.services.service.check',
+            'uses' => 'ServicesController@index',
+            //'middleware' => 'can:services.services.edit'
+        ]);
     });
     $router->group(['prefix' =>'/workflow'], function (Router $router) {
         $router->get('/', [

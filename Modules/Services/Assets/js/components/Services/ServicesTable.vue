@@ -26,6 +26,20 @@
                                         </el-button>
                                     </router-link>
                                 </div>
+                                <div class="actions el-col el-col-8">
+                                    <router-link :to="{name: 'admin.services.service.generate'}">
+                                        <el-button type="primary"><i class="el-icon-edit"></i>
+                                            {{ trans('services.button.generate-services') }}
+                                        </el-button>
+                                    </router-link>
+                                </div>
+                                <div class="actions el-col el-col-8">
+                                    <router-link :to="{name: 'admin.services.service.check'}">
+                                        <el-button type="primary"><i class="el-icon-edit"></i>
+                                            {{ trans('services.button.check-services') }}
+                                        </el-button>
+                                    </router-link>
+                                </div>
                                 <div class="search el-col el-col-5">
                                     <el-input prefix-icon="el-icon-search" @keyup.native="performSearch" v-model="searchQuery">
                                     </el-input>

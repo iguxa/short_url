@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <div>
         <div class="content-header">
             <h1>
@@ -26,47 +26,6 @@
                         <div class="box-body">
                             <el-tabs>
                                 <el-tab-pane :label="trans('services.title.data')">
-                                    <!--title-->
-                                    <el-form-item :label="trans('services.form.title')"
-                                                  :class="{'el-form-item is-error': form.errors.has('title') }">
-                                        <el-input
-                                                v-model="services.title"></el-input>
-                                        <div class="el-form-item__error" v-if="form.errors.has('title')"
-                                             v-text="form.errors.first('title')"></div>
-                                    </el-form-item>
-                                    <!--description-->
-                                    <el-form-item :label="trans('services.form.description')"
-                                                  :class="{'el-form-item is-error': form.errors.has('description') }">
-                                        <el-input
-                                                v-model="services.description"></el-input>
-                                        <div class="el-form-item__error" v-if="form.errors.has('description')"
-                                             v-text="form.errors.first('description')"></div>
-                                    </el-form-item>
-                                    <!--redirect-->
-                                    <!--<el-form-item :label="trans('services.form.redirect')"
-                                                  :class="{'el-form-item is-error': form.errors.has('redirect') }">
-                                        <el-input
-                                                v-model="services.redirect"></el-input>
-                                        <div class="el-form-item__error" v-if="form.errors.has('redirect')"
-                                             v-text="form.errors.first('redirect')"></div>
-                                    </el-form-item>-->
-
-                                    <!--state-->
-                                    <el-form-item :label="trans('services.form.state.title')"
-                                                  :class="{'el-form-item is-error': form.errors.has('state') }">
-                                        <el-checkbox
-                                                v-model="services.state" :value="services.state">{{ trans('services.form.state.state') }}</el-checkbox>
-                                        <div class="el-form-item__error" v-if="form.errors.has('state')"
-                                             v-text="form.errors.first('state')"></div>
-                                    </el-form-item>
-                                    <!--api_url-->
-                                    <el-form-item :label="trans('services.form.api_url')"
-                                                  :class="{'el-form-item is-error': form.errors.has('api_url') }">
-                                        <el-input
-                                                v-model="services.api_url"></el-input>
-                                        <div class="el-form-item__error" v-if="form.errors.has('api_url')"
-                                             v-text="form.errors.first('api_url')"></div>
-                                    </el-form-item>
                                     <!--related_offers-->
                                     <div class="panel box box-primary">
                                         <div class="box-header">
@@ -98,6 +57,13 @@
                                         </div>
                                         <div class="el-form-item__error" v-if="form.errors.has('related_offers')"
                                              v-text="form.errors.first('related_offers')"></div>
+                                    </div>
+                                    <div v-if="doubles">
+                                        <ul  class="list-group list-group-flush">
+                                            <li class="list-group-item" v-for="(double,index) in doubles">
+                                                <router-link :to="{name: 'admin.services.edit', params: { servicesId: double.id}}">{{ double.title }}</router-link>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </el-tab-pane>
                             </el-tabs>
@@ -134,19 +100,16 @@
         data() {
             return {
                 services: {
-                    state: '',
-                    description: '',
                     title: '',
-                    api_url: '',
                     related_services: [],
                 },
                 form: new Form(),
                 loading: false,
-                api_dates: [],
+                doubles: [],
             };
         },
         methods: {
-            deleteVariant(index,offer) {
+            deleteVariant(index, offer) {
                 this.services[offer].splice(index, 1);
             },
             validateUrl() {
@@ -164,7 +127,8 @@
                             type: 'success',
                             message: response.message,
                         });
-                        this.$router.push({ name: 'admin.services.index' });
+                        this.doubles = response;
+                        // this.$router.push({ name: 'admin.services.index' });
                     })
                     .catch((error) => {
                         console.log(error);
@@ -178,22 +142,11 @@
             onCancel() {
                 this.$router.push({ name: 'admin.services.index' });
             },
-            fetchServices() {
-                if (this.$route.params.servicesId !== undefined) {
-                    this.loading = true;
-                    const routeUri = route('api.services.service.find', { services: this.$route.params.servicesId });
-                    axios.get(routeUri)
-                        .then((response) => {
-                            this.loading = false;
-                            this.services = response.data.data;
-                        });
-                }
-            },
             getRoute() {
-                if (this.$route.params.servicesId !== undefined) {
+                /*if (this.$route.params.servicesId !== undefined) {
                     return route('api.services.service.update', { services: this.$route.params.servicesId });
-                }
-                return route('api.services.service.store');
+                }*/
+                return route('api.services.service.check');
             },
             fetchByUrl(url) {
                 return axios.get(url)
@@ -201,42 +154,8 @@
                         this.api_dates = response.data;
                     });
             },
-            updateServices() {
-                this.form = new Form(this.api_dates);
-                this.loading = true;
-
-                this.form.post(route('api.services.service.updateservices'))
-                    .then((response) => {
-                        this.loading = false;
-                        this.$message({
-                            type: 'success',
-                            message: response.message,
-                        });
-                        this.services.related_services = response;
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                        this.loading = false;
-                        this.$notify.error({
-                            title: 'Error',
-                            message: 'There are some errors in the form.',
-                        });
-                    });
-            },
-        },
-        watch:{
-            'services.api_url': function(val, oldVal){
-                if (val !== oldVal) {
-                    if(val){
-                        this.fetchByUrl(val).then(() => {
-                            this.updateServices();
-                        });
-                    }
-                }
-            },
         },
         mounted() {
-              this.fetchServices();
         },
     };
 </script>

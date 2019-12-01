@@ -34,6 +34,26 @@ $router->group(['prefix' => '/services'/*,'middleware' => ['throttle:5,10', 'aut
             'as' => 'api.services.service.update',
             'uses' => 'ServicesController@update',
             //'middleware' => 'token-can:page.pages.edit',
+        ])->where('services','[0-9]+');
+        $router->post('updateservices', [
+            'as' => 'api.services.service.updateservices',
+            'uses' => 'ServicesController@updateServices',
+            //'middleware' => 'token-can:page.pages.edit',
+        ]);
+        $router->get('generate', [
+            'as' => 'api.services.service.generate',
+            'uses' => 'ServicesController@generate',
+            //'middleware' => 'token-can:designer.projects.destroy',
+        ]);
+        $router->get('getdoc', [
+            'as' => 'api.services.service.getdoc',
+            'uses' => 'ServicesController@getdoc',
+            //'middleware' => 'token-can:designer.projects.destroy',
+        ]);
+        $router->post('check', [
+            'as' => 'api.services.service.check',
+            'uses' => 'ServicesController@check',
+            //'middleware' => 'token-can:designer.projects.destroy',
         ]);
     });
 

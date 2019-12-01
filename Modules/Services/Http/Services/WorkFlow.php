@@ -9,15 +9,17 @@
 namespace Modules\Services\Http\Services;
 
 
+use Modules\Services\Entities\Services;
 use Modules\Services\Entities\WorkFlows;
 
 class WorkFlow
 {
     public function workflow()
     {
-        $test = 1;
         return [
-            'straight'   => [
+            //'title'=>'project1',
+            //'description'=>'decr project',
+            'workflow'   => [
                 'type'          => 'workflow',
                 'marking_store' => [
                     'type' => 'single_state',
@@ -44,6 +46,38 @@ class WorkFlow
             }
         }
         return $result;
+    }
+    public function getSer()
+    {
+        $result = [];
+        $models = Services::all();
+        foreach ($models as $model){
+            $related = $model->related_services()->get();
+            foreach ($related ?? [] as $rel){
+                $result[$model->description ?? 'cust'] = [
+                    'from' => $model->title,
+                    'to'   => $rel->title,
+                ];
+            }
+        }
+        return $result;
+    }
+    public function services()
+    {
+        return [
+            //'title'=>'project1',
+            //'description'=>'decr project',
+            'services'   => [
+                'type'          => 'workflow',
+                'marking_store' => [
+                    'type' => 'single_state',
+                ],
+                'supports'      => ['stdClass'],
+                'places'        => Services::all()->pluck('title'),
+                'transitions'   => $this->getSer()
+                ,
+            ]
+        ];
     }
 
 }

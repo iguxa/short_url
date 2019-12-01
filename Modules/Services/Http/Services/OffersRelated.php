@@ -3,6 +3,7 @@
 namespace Modules\Services\Http\Services;
 use Modules\Services\Http\Services\Contracts\OffersRelatedService;
 use Illuminate\Database\Eloquent\Model;
+use Nwidart\Modules\Collection;
 
 
 class OffersRelated implements OffersRelatedService
@@ -24,4 +25,13 @@ class OffersRelated implements OffersRelatedService
     {
         $this->model->labels()->sync($ids);
     }
+    public function getSameByRel(array $ids)
+    {
+        $model = $this->model;
+        foreach ($ids as $id){
+            $model = $model->where('id',$id);
+        }
+        return $model->get();
+    }
+
 }
