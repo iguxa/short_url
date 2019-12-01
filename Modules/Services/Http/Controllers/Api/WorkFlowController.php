@@ -63,7 +63,9 @@ class WorkFlowController extends Controller
         ]);*/
         //Artisan::call('module:make-migration create_services__workflow_related_table11 Services');
         //return shell_exec('php /var/www/short_url/artisan workflow:dump straight --format=svg --class=stdClass');
-         shell_exec('cp /var/www/short_url/straight.svg /var/www/short_url/public');
+        // shell_exec('cp /var/www/short_url/straight.svg /var/www/short_url/public');
+        shell_exec('cp /var/www/asgard_short/straight.svg /var/www/asgard_short/public');
+
         return ['src'=>URL::to('/').'/straight.svg'];
     }
 
