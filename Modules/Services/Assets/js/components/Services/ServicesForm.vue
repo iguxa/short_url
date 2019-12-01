@@ -2,20 +2,20 @@
     <div>
         <div class="content-header">
             <h1>
-                {{ trans('shorturls.title.shorturls') }} <small>{{ shorturl.name }}</small>
+                {{ trans('services.title.services') }} <small>{{ services.name }}</small>
             </h1>
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item>
                     <a href="/backend">{{ trans('core.breadcrumb.home') }}</a>
                 </el-breadcrumb-item>
-                <el-breadcrumb-item :to="{name: 'admin.shorturl.index'}">{{ trans('shorturls.title.shorturls') }}
+                <el-breadcrumb-item :to="{name: 'admin.services.index'}">{{ trans('services.title.services') }}
                 </el-breadcrumb-item>
-                <el-breadcrumb-item :to="{name: 'admin.shorturl.create'}">{{ trans(`shorturls.title.create`) }}
+                <el-breadcrumb-item :to="{name: 'admin.services.create'}">{{ trans(`services.title.create`) }}
                 </el-breadcrumb-item>
             </el-breadcrumb>
         </div>
         <el-form ref="form"
-                 :model="shorturl"
+                 :model="services"
                  label-width="120px"
                  label-position="top"
                  v-loading.body="loading"
@@ -25,37 +25,36 @@
                     <div class="box box-primary">
                         <div class="box-body">
                             <el-tabs>
-                                <el-tab-pane :label="trans('shorturls.title.data')">
+                                <el-tab-pane :label="trans('services.title.data')">
                                     <!--title-->
-                                    <el-form-item v-if="shorturl.title" :label="trans('shorturls.form.title')"
+                                    <el-form-item :label="trans('services.form.title')"
                                                   :class="{'el-form-item is-error': form.errors.has('title') }">
                                         <el-input
-                                                disabled
-                                                v-model="shorturl.title"></el-input>
+                                                v-model="services.title"></el-input>
                                         <div class="el-form-item__error" v-if="form.errors.has('title')"
                                              v-text="form.errors.first('title')"></div>
                                     </el-form-item>
                                     <!--description-->
-                                    <el-form-item :label="trans('shorturls.form.description')"
+                                    <el-form-item :label="trans('services.form.description')"
                                                   :class="{'el-form-item is-error': form.errors.has('description') }">
                                         <el-input
-                                                v-model="shorturl.description"></el-input>
+                                                v-model="services.description"></el-input>
                                         <div class="el-form-item__error" v-if="form.errors.has('description')"
                                              v-text="form.errors.first('description')"></div>
                                     </el-form-item>
                                     <!--redirect-->
-                                    <el-form-item :label="trans('shorturls.form.redirect')"
+                                    <!--<el-form-item :label="trans('services.form.redirect')"
                                                   :class="{'el-form-item is-error': form.errors.has('redirect') }">
                                         <el-input
-                                                v-model="shorturl.redirect"></el-input>
+                                                v-model="services.redirect"></el-input>
                                         <div class="el-form-item__error" v-if="form.errors.has('redirect')"
                                              v-text="form.errors.first('redirect')"></div>
-                                    </el-form-item>
+                                    </el-form-item>-->
                                     <!--state-->
-                                    <el-form-item :label="trans('shorturls.form.state')"
+                                    <el-form-item :label="trans('services.form.state')"
                                                   :class="{'el-form-item is-error': form.errors.has('state') }">
                                         <el-checkbox
-                                                v-model="shorturl.state" :value="shorturl.state">{{ trans('shorturls.form.state.state') }}</el-checkbox>
+                                                v-model="services.state" :value="services.state">{{ trans('services.form.state.state') }}</el-checkbox>
                                         <div class="el-form-item__error" v-if="form.errors.has('state')"
                                              v-text="form.errors.first('state')"></div>
                                     </el-form-item>
@@ -64,7 +63,7 @@
                         </div>
                         <div class="box-footer">
                             <el-form-item>
-                                <el-button type="primary" @click="onSubmit()" :loading="loading" :disabled="validateUrl()">
+                                <el-button type="primary" @click="onSubmit()" :loading="loading">
                                     {{ trans('core.button.save') }}
                                 </el-button>
                                 <el-button @click="onCancel()">{{ trans('core.button.cancel') }}
@@ -82,7 +81,7 @@
 <script>
     import axios from 'axios';
     import Form from 'form-backend-validation';
-    import ShortcutHelper from '../../../../Core/Assets/js/mixins/ShortcutHelper';
+    import ShortcutHelper from '../../../../../Core/Assets/js/mixins/ShortcutHelper';
 
 
     export default {
@@ -93,10 +92,10 @@
         },
         data() {
             return {
-                shorturl: {
+                services: {
                     state: '',
                     description: '',
-                    redirect: '',
+                    title: '',
                 },
                 form: new Form(),
                 loading: false,
@@ -104,7 +103,7 @@
         },
         methods: {
             onSubmit() {
-                this.form = new Form(this.shorturl);
+                this.form = new Form(this.services);
                 this.loading = true;
 
                 this.form.post(this.getRoute())
@@ -114,7 +113,7 @@
                             type: 'success',
                             message: response.message,
                         });
-                        this.$router.push({ name: 'admin.shorturl.index' });
+                        this.$router.push({ name: 'admin.services.index' });
                     })
                     .catch((error) => {
                         console.log(error);
@@ -126,32 +125,28 @@
                     });
             },
             onCancel() {
-                this.$router.push({ name: 'admin.shorturl.index' });
+                this.$router.push({ name: 'admin.services.index' });
             },
-            validateUrl() {
-                const regex = /^(http|https)/;
-                return (!this.shorturl.redirect.match(regex));
-            },
-            fetchShortUrl() {
-                if (this.$route.params.shorturlId !== undefined) {
+            fetchServices() {
+                if (this.$route.params.servicesId !== undefined) {
                     this.loading = true;
-                    const routeUri = route('api.shorturl.find', { shorturl_id: this.$route.params.shorturlId });
+                    const routeUri = route('api.services.service.find', { services: this.$route.params.servicesId });
                     axios.get(routeUri)
                         .then((response) => {
                             this.loading = false;
-                            this.shorturl = response.data.data;
+                            this.services = response.data.data;
                         });
                 }
             },
             getRoute() {
-                if (this.$route.params.shorturlId !== undefined) {
-                    return route('api.shorturl.update', { shorturl_id: this.$route.params.shorturlId });
+                if (this.$route.params.servicesId !== undefined) {
+                    return route('api.services.service.update', { services: this.$route.params.servicesId });
                 }
-                return route('api.shorturl.store');
+                return route('api.services.service.store');
             },
         },
         mounted() {
-              this.fetchShortUrl();
+              this.fetchServices();
         },
     };
 </script>

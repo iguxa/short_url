@@ -1,13 +1,13 @@
 <?php
 
 return [
-    'services.services' => [
+    'services.service' => [
         'index' => 'services::services.list resource',
         'create' => 'services::services.create resource',
         'edit' => 'services::services.edit resource',
         'destroy' => 'services::services.destroy resource',
     ],
-    'services.workflows' => [
+    'services.workflow' => [
         'index' => 'services::workflows.list resource',
         'create' => 'services::workflows.create resource',
         'edit' => 'services::workflows.edit resource',

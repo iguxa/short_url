@@ -1,7 +1,7 @@
 <?php
-
-return /*[
-    'straight'   => [
+$test1 = 1;
+$test =
+    /*'straight'   => [
         'type'          => 'workflow',
         'marking_store' => [
             'type' => 'single_state',
@@ -24,5 +24,34 @@ return /*[
                 'to'   => 'c',
             ]
         ],
+    ]*/
+    json_decode(file_get_contents( 'public/results.json'),1)
+;
+$test1 = [
+    'straight'   => [
+        'type'          => 'workflow', // or 'state_machine'
+        'marking_store' => [
+            'type'      => 'multiple_state',
+            //'arguments' => ['currentPlace']
+        ],
+        'supports'      => ['stdClass'],
+        'places'        => ['draft', 'review', 'rejected', 'published'],
+        'transitions'   => [
+            'to_review' => [
+                'from' => 'draft',
+                'to'   => 'review'
+            ],
+            'publish' => [
+                'from' => 'review',
+                'to'   => 'published'
+            ],
+            'reject' => [
+                'from' => 'review',
+                'to'   => 'rejected'
+            ]
+        ],
     ]
-]*/ (new \Modules\Shorturl\Entities\ShortUrl())->workflow();
+];
+
+return $test;
+//json_decode(file_get_contents( 'results.json'),1);

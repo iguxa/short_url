@@ -4,38 +4,36 @@ namespace Modules\Services\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\Page\Entities\Page;
-use Modules\Page\Http\Requests\CreatePageRequest;
 use Modules\Page\Http\Requests\CreateShortUrlRequest;
-use Modules\Page\Http\Requests\UpdatePageRequest;
-use Modules\Page\Repositories\PageRepository;
-use Modules\Page\Transformers\FullPageTransformer;
-use Modules\Page\Transformers\PageTransformer;
+use Modules\Services\Entities\Services;
+use Modules\Services\Http\Requests\Services\CreateServicesRequest;
+use Modules\Services\Repositories\ServicesRepository;
+use Modules\Services\Transformers\Services\ServicesFormTransformer;
+use Modules\Services\Transformers\Services\ServicesTransformer;
 use Modules\Shorturl\Entities\ShortUrl;
-use Modules\Shorturl\Repositories\ShortUrlRepository;
 use Modules\Shorturl\Transformers\ShortUrlTransformer;
 
 class ServicesController extends Controller
 {
     /**
-     * @var ShortUrlRepository
+     * @var ServicesRepository
      */
-    private $shortUrl;
+    private $services;
 
-    public function __construct(ShortUrlRepository $shortUrl)
+    public function __construct(ServicesRepository $services)
     {
-        $this->shortUrl = $shortUrl;
+        $this->services = $services;
     }
 
     public function index(Request $request)
     {
-        return ShortUrlTransformer::collection($this->shortUrl->serverPaginationFilteringFor($request));
+        return ServicesTransformer::collection($this->services->serverPaginationFilteringFor($request));
 
     }
 
-    public function store(CreateShortUrlRequest $request)
+    public function store(CreateServicesRequest $request)
     {
-        $this->shortUrl->create($request->all());
+        $this->services->create($request->all());
 
         return response()->json([
             'errors' => false,
@@ -43,14 +41,14 @@ class ServicesController extends Controller
         ]);
     }
 
-    public function find(ShortUrl $shortUrl)
+    public function find(Services $services)
     {
-        return new ShortUrlTransformer($shortUrl);
+        return new ServicesFormTransformer($services);
     }
 
-    public function update(ShortUrl $shortUrl, CreateShortUrlRequest $request)
+    public function update(Services $services, CreateServicesRequest $request)
     {
-        $this->shortUrl->update($shortUrl, $request->except('title'));
+        $this->services->update($services, $request->except('id'));
 
         return response()->json([
             'errors' => false,
@@ -58,9 +56,9 @@ class ServicesController extends Controller
         ]);
     }
 
-    public function destroy(ShortUrl $shortUrl)
+    public function destroy(Services $services)
     {
-        $this->shortUrl->destroy($shortUrl);
+        $this->services->destroy($services);
 
         return response()->json([
             'errors' => false,

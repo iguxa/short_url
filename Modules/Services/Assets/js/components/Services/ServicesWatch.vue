@@ -74,7 +74,7 @@
 <script>
     import axios from 'axios';
     import Form from 'form-backend-validation';
-    import ShortcutHelper from '../../../../Core/Assets/js/mixins/ShortcutHelper';
+    import ShortcutHelper from '../../../../../Core/Assets/js/mixins/ShortcutHelper';
 
 
     export default {

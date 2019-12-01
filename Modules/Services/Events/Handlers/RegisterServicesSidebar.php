@@ -46,10 +46,10 @@ class RegisterServicesSidebar implements \Maatwebsite\Sidebar\SidebarExtender
                 $item->item(trans('services::services.title.services'), function (Item $item) {
                     $item->icon('fa fa-copy');
                     $item->weight(0);
-                    $item->append('admin.services.services.create');
-                    $item->route('admin.services.services.index');
+                    $item->append('admin.services.service.create');
+                    $item->route('admin.services.service.index');
                     $item->authorize(
-                        $this->auth->hasAccess('services.services.index')
+                        $this->auth->hasAccess('services.service.index')
                     );
                 });
                 /*$item->item(trans('services::workflows.title.workflows'), function (Item $item) {
@@ -80,6 +80,15 @@ class RegisterServicesSidebar implements \Maatwebsite\Sidebar\SidebarExtender
                     );
                 });*/
 // append
+                $item->item(trans('services::services.title.workflow'), function (Item $item) {
+                    $item->icon('fa fa-copy');
+                    $item->weight(0);
+                    $item->append('admin.services.workflow.create');
+                    $item->route('admin.services.workflow.index');
+                    $item->authorize(
+                        $this->auth->hasAccess('services.workflow.index')
+                    );
+                });
 
 
 

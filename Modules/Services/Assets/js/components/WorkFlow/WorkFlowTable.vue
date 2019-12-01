@@ -2,13 +2,13 @@
     <div>
         <div class="content-header">
             <h1>
-                {{ trans('shorturls.title.shorturls') }}
+                {{ trans('services.workflow.title.services') }}
             </h1>
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item>
                     <a href="/backend">{{ trans('core.breadcrumb.home') }}</a>
                 </el-breadcrumb-item>
-                <el-breadcrumb-item :to="{name: 'admin.shorturl.index'}">{{ trans('shorturls.title.shorturls') }}
+                <el-breadcrumb-item :to="{name: 'admin.services.workflow.index'}">{{ trans('services.workflow.title.services') }}
                 </el-breadcrumb-item>
             </el-breadcrumb>
         </div>
@@ -20,9 +20,16 @@
                         <div class="sc-table">
                             <div class="tool-bar el-row" style="padding-bottom: 20px;">
                                 <div class="actions el-col el-col-8">
-                                    <router-link :to="{name: 'admin.shorturl.create'}">
+                                    <router-link :to="{name: 'admin.services.workflow.create'}">
                                         <el-button type="primary"><i class="el-icon-edit"></i>
-                                            {{ trans('shorturls.button.new-shorturls') }}
+                                            {{ trans('services.button.new-services') }}
+                                        </el-button>
+                                    </router-link>
+                                </div>
+                                <div class="actions el-col el-col-8">
+                                    <router-link :to="{name: 'admin.services.workflow.generate'}">
+                                        <el-button type="primary"><i class="el-icon-edit"></i>
+                                            {{ trans('services.button.generate-services') }}
                                         </el-button>
                                     </router-link>
                                 </div>
@@ -39,45 +46,48 @@
                                     ref="projectTable"
                                     v-loading.body="tableIsLoading"
                                     @sort-change="handleSortChange">
-                                <el-table-column :label="trans('shorturls.table.status')" width="100">
+                                <el-table-column :label="trans('services.table.status')" width="100">
                                     <template slot-scope="scope">
                                         <i class="fa fa-circle" :class="(scope.row.state === true) ? 'text-success':'text-danger'"></i>
                                     </template>
                                 </el-table-column>
                                 <el-table-column prop="id" label="Id" width="75" sortable="custom">
                                 </el-table-column>
-                                <el-table-column prop="title" :label="trans('shorturls.table.link')" sortable="custom">
+                                <el-table-column prop="title" :label="trans('services.table.link')" sortable="custom">
                                     <template slot-scope="scope">
-                                        <a :href=scope.row.title>
                                             {{ scope.row.title }}
-                                        </a>
                                     </template>
                                 </el-table-column>
-                                <el-table-column prop="title" :label="trans('shorturls.table.redirect')" sortable="custom">
-                                    <template slot-scope="scope">
-                                        <a :href=scope.row.title>
-                                            {{ scope.row.redirect }}
-                                        </a>
+                                <el-table-column prop="title" :label="trans('services.workflow.table.workflow.up')">
+                                    <template slot-scope="scope" >
+                                        {{ scope.row.places }}
+                                        <div @click="moveCategory(scope.row.id,'up')">
+                                            <i class="fa fa-arrow-up" aria-hidden="true"  ></i>
+                                        </div>
                                     </template>
                                 </el-table-column>
-                                <el-table-column prop="title" :label="trans('shorturls.table.counter')" sortable="custom">
-                                    <template slot-scope="scope">
-                                            {{ scope.row.counter }}
+
+                                <el-table-column prop="title" :label="trans('services.workflow.table.workflow.down')">
+                                    <template slot-scope="scope" >
+                                        {{ scope.row.places }}
+                                        <div @click="moveCategory(scope.row.id,'down')">
+                                            <i class="fa fa-arrow-down" aria-hidden="true" ></i>
+                                        </div>
                                     </template>
                                 </el-table-column>
                                 <el-table-column prop="actions" :label="trans('core.table.actions')">
                                     <template slot-scope="scope">
                                         <el-button-group>
                                             <edit-button
-                                                    :to="{name: 'admin.shorturl.edit', params: {shorturlId: scope.row.id}}"></edit-button>
+                                                    :to="{name: 'admin.services.workflow.edit', params: {workflowId: scope.row.id}}"></edit-button>
                                             <watch-button
-                                                    :to="{name: 'admin.shorturl.watch', params: {shorturlId: scope.row.id}}"></watch-button>
+                                                    :to="{name: 'admin.services.workflow.watch', params: {workflowId: scope.row.id}}"></watch-button>
                                             <delete-button :scope="scope" :rows="data"></delete-button>
                                         </el-button-group>
                                     </template>
                                 </el-table-column>
                             </el-table>
-                            <div class="pagination-wrap" style="text-align: center; padding-top: 20px;">
+                            <!--<div class="pagination-wrap" style="text-align: center; padding-top: 20px;">
                                 <el-pagination
                                         @size-change="handleSizeChange"
                                         @current-change="handleCurrentChange"
@@ -87,20 +97,20 @@
                                         layout="total, sizes, prev, pager, next, jumper"
                                         :total="meta.total">
                                 </el-pagination>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <button v-shortkey="['c']" @shortkey="pushRoute({name: 'api.shorturl.create'})" v-show="false"></button>
+        <button v-shortkey="['c']" @shortkey="pushRoute({name: 'api.services.workflow.create'})" v-show="false"></button>
     </div>
 </template>
 
 <script>
     import axios from 'axios';
     import _ from 'lodash';
-    import ShortcutHelper from '../../../../Core/Assets/js/mixins/ShortcutHelper';
+    import ShortcutHelper from '../../../../../Core/Assets/js/mixins/ShortcutHelper';
 
 
     export default {
@@ -122,6 +132,20 @@
             };
         },
         methods: {
+            moveCategory(id,type){
+                this.tableIsLoading = true;
+                axios.get(route(`api.services.workflow.${type}`,{workflow:id}))
+                    .then((response) => {
+                        this.data = response.data.data;
+                        this.tableIsLoading = false;
+                        this.$forceUpdate();
+                    });
+            },
+            forceUpdate(){
+                this.fetchData().then(
+                    this.$forceUpdate()
+                );
+            },
             queryServer(customProperties) {
                 const properties = {
                     page: this.meta.current_page,
@@ -131,11 +155,11 @@
                     search: this.searchQuery,
                 };
 
-                axios.get(route('api.shorturl.index', _.merge(properties, customProperties)))
+                axios.get(route('api.services.workflow.index', _.merge(properties, customProperties)))
                     .then((response) => {
                         this.tableIsLoading = false;
                         this.data = response.data.data;
-                        this.meta = response.data.meta;
+                       // this.meta = response.data.meta;
                     });
             },
             fetchData() {
@@ -163,7 +187,7 @@
                 this.queryServer({ search: query.target.value });
             }, 300),
             goToEdit(scope) {
-                this.$router.push({ name: 'admin.shorturl.edit', params: { shorturl_id: scope.row.id } });
+                this.$router.push({ name: 'admin.services.workflow.edit', params: { workflowId: scope.row.id } });
             },
         },
         mounted() {
