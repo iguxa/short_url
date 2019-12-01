@@ -6,7 +6,7 @@ return [
     'edit resource' => 'Edit workflows',
     'destroy resource' => 'Destroy workflows',
     'title' => [
-        'workflows' => 'WorkFlows',
+        'workflows' => 'Рабочие процессы',
         'create workflows' => 'Create a workflows',
         'edit workflows' => 'Edit a workflows',
     ],
@@ -16,6 +16,11 @@ return [
     'table' => [
     ],
     'form' => [
+        'title' => 'Название рабочего процесса',
+        'description' => 'Описание',
+        'parent_workflow' => 'Родителский процесс',
+        'state' => 'Статус',
+        'related_workflow' => 'Связаные рабочие процессы'
     ],
     'messages' => [
     ],

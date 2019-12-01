@@ -2,7 +2,7 @@
     <div class="div">
         <div class="content-header">
             <h1>
-                {{ trans('workflow.title.workflow') }}
+                {{ trans('workflows.title.workflows') }}
             </h1>
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item>
@@ -22,7 +22,7 @@
                     <div class="box box-primary">
                         <div class="box-body">
                             <!--title-->
-                            <el-form-item :label="trans('workflow.form.title')"
+                            <el-form-item :label="trans('workflows.form.title')"
                                           :class="{'el-form-item is-error': form.errors.has('title') }">
                                 <el-input v-model="workflow.title"></el-input>
                                 <div class="el-form-item__error" v-if="form.errors.has('title')"
@@ -38,7 +38,7 @@
                                      v-text="form.errors.first('slug')"></div>
                             </el-form-item>-->
                             <!--description-->
-                            <el-form-item :label="trans('workflow.form.description')"
+                            <el-form-item :label="trans('workflows.form.description')"
                                           :class="{'el-form-item is-error': form.errors.has('description') }">
                                 <el-input type="textarea"
                                           v-model="workflow.description"></el-input>
@@ -46,7 +46,7 @@
                                      v-text="form.errors.first('description')"></div>
                             </el-form-item>
                             <!--categories_type-->
-                            <el-form-item :label="trans('workflow.form.parent_workflow')"
+                            <el-form-item :label="trans('workflows.form.parent_workflow')"
                                           :class="{'el-form-item is-error': form.errors.has('parent') }"><br>
                                 <el-select v-model="workflow.id">
                                     <el-option label="Родительская категория" :value="null"></el-option>
@@ -97,14 +97,14 @@
                                     <h4 class="box-title">
                                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
                                            :href="`#collapse-related_workflow`">
-                                            {{ trans('workflow.form.related_workflow') }}
+                                            {{ trans('workflows.form.related_workflow') }}
                                         </a>
                                     </h4>
                                 </div>
                                 <div style="height: 0px;" :id="`collapse-related_workflow`"
                                      class="panel-collapse collapse">
                                     <div class="box-body">
-                                        <el-form-item :label="trans('workflow.form.related_workflow')" :class="{'el-form-item is-error': form.errors.has('related_workflow') }">
+                                        <el-form-item :label="trans('workflows.form.related_workflow')" :class="{'el-form-item is-error': form.errors.has('related_workflow') }">
                                             <div  v-for="(id, key) in workflow.related_workflow" :key="key">
                                                 <entity-filter entity="Modules\Services\Entities\WorkFlows" v-model="workflow.related_workflow[key]">
                                                     <template v-slot:btn>
@@ -126,7 +126,7 @@
                             <!--state-->
                             <el-form-item :workflow="trans('workflow.form.status')"
                                           :class="{'el-form-item is-error': form.errors.has('state') }">
-                                <el-checkbox v-model="workflow.state">{{ trans('workflow.form.state') }}</el-checkbox>
+                                <el-checkbox v-model="workflow.state">{{ trans('workflows.form.state') }}</el-checkbox>
                                 <div class="el-form-item__error" v-if="form.errors.has( 'state')"
                                      v-text="form.errors.first('state')"></div>
                             </el-form-item>
