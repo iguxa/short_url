@@ -2,13 +2,13 @@
     <div>
         <div class="content-header">
             <h1>
-                {{ trans('services.workflow.title.services') }}
+                {{ trans('services.title.workflow') }}
             </h1>
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item>
                     <a href="/backend">{{ trans('core.breadcrumb.home') }}</a>
                 </el-breadcrumb-item>
-                <el-breadcrumb-item :to="{name: 'admin.services.workflow.index'}">{{ trans('services.workflow.title.services') }}
+                <el-breadcrumb-item :to="{name: 'admin.services.workflow.index'}">{{ trans('services.title.workflow') }}
                 </el-breadcrumb-item>
             </el-breadcrumb>
         </div>
