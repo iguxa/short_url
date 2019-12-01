@@ -52,7 +52,7 @@
                                     </el-form-item>-->
 
                                     <!--state-->
-                                    <el-form-item :label="trans('services.form.state')"
+                                    <el-form-item :label="trans('services.form.state.title')"
                                                   :class="{'el-form-item is-error': form.errors.has('state') }">
                                         <el-checkbox
                                                 v-model="services.state" :value="services.state">{{ trans('services.form.state.state') }}</el-checkbox>
